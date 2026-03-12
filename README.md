@@ -174,7 +174,18 @@ git commit -m "Update project"
 git push origin main
 ```
 
----
+
+### WORKABLE OUTPUT LINK 
+
+workable links based on my personal api key used via streamlit application(web)
+--to add api key to streamlit go to settings->secrets->past u r api key in there and deploy the app 
+
+**Text RAG App** (`main.py`) – asks questions from a local text file (`about machine learning`)-
+link - https://retrieval-augmented-generation-de7z2mrqwx9mp4j5vgdjif.streamlit.app/
+
+**PDF RAG + OCR App** (`pdf.py`) – lets you upload PDF files and ask questions, including scanned PDFs using OCR.
+link - https://retrieval-augmented-generation-nxjtg6mxhf55do9zmtjsji.streamlit.app/
+
 
 ## Notes
 
