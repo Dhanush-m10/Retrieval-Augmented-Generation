@@ -10,27 +10,38 @@ from groq import Groq
 # ==============================
 # 1️⃣ Load Environment Variables
 # ==============================
-load_dotenv()
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+# Try loading Streamlit secrets first
+if "GROQ_API_KEY" in st.secrets:
+    GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
+else:
+    # fallback for local development
+    load_dotenv()
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 if not GROQ_API_KEY:
-    st.error("GROQ_API_KEY not found in .env file")
+    st.error("❌ GROQ_API_KEY not found. Please add it to Streamlit secrets or .env file.")
     st.stop()
 
 client = Groq(api_key=GROQ_API_KEY)
 
+
 # ==============================
 # 2️⃣ Streamlit UI
 # ==============================
+
 st.set_page_config(page_title="Importance of ML RAG App", page_icon="🌍")
-st.title("🌍 RAG App - Importance of ML")
-st.write("Ask questions about the Importance of ML.")
+st.title("🌍 RAG App - Importance of Machine Learning")
+st.write("Ask questions about the **Importance of Machine Learning**.")
+
 
 # ==============================
 # 3️⃣ Load and Process Documents
 # ==============================
+
 @st.cache_resource
 def load_vectorstore():
+
     with open("documents.txt", "r", encoding="utf-8") as f:
         text = f.read()
 
@@ -51,22 +62,28 @@ def load_vectorstore():
 
     return vectorstore
 
+
 vectorstore = load_vectorstore()
+
 
 # ==============================
 # 4️⃣ Query Input
 # ==============================
+
 query = st.text_input("Enter your question:")
 
 if query:
+
     retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
     docs = retriever.invoke(query)
+
     context = "\n\n".join([doc.page_content for doc in docs])
 
     prompt = f"""
-You are an datascientist answering questions about the importance of machine learning.
+You are a data scientist answering questions about the importance of machine learning.
+
 Use ONLY the context below to answer.
-If the answer is not in the context, say you don't know.
+If the answer is not in the context, say "I don't know".
 
 Context:
 {context}
@@ -90,6 +107,7 @@ Answer:
     st.subheader("📌 Answer")
     st.write(answer)
 
-   # st.subheader("📚 Sources Used")
-   # for doc in docs:
-    #    st.write("-", doc.page_content)
+    # Optional: show sources
+    # st.subheader("📚 Sources Used")
+    # for doc in docs:
+    #     st.write("-", doc.page_content)
