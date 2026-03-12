@@ -8,3 +8,4 @@ pypdf
 pytesseract 
 pdf2image 
 pillow
+langchain-text-splitters
