@@ -10,3 +10,4 @@ pdf2image
 pillow
 langchain-text-splitters
 langchain-community
+PyMuPDF
