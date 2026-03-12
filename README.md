@@ -1,4 +1,4 @@
-# Retrieval-Augmented-Generation (RAG)
+# Retrieval-Augmented-Generation (RAG)(only answers based on machine learning)
 
 A Streamlit-based RAG project with two apps:
 
